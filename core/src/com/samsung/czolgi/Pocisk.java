@@ -1,30 +1,25 @@
 package com.samsung.czolgi;
 
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.samsung.czolgi.fizyka.Cialo;
+import com.samsung.czolgi.internal.Assets;
 
-/**
- * Created by p.adamczyk on 10/6/17.
- */
 
 public class Pocisk extends Sprite {
-    public static final int WIDTH = 16;
-    public static final int HEIGHT = 16;
 
-    private Texture texture;
+    final Cialo cialo = new Cialo();
 
-    public Pocisk(Texture texture) {
-        super(texture);
-        this.texture = texture;
+    public Pocisk() {
+        super(Assets.getPociskTex());
+        setScale(0.5f);
     }
 
-    public void ustawPozycje(float kat, float x, float y) {
-        setRotation(kat);
-        setPosition(x, y);
-    }
-
-    public Texture getTexture() {
-        return texture;
+    @Override
+    public void draw(Batch batch) {
+        setPosition(cialo.getX(), cialo.getY());
+        super.draw(batch);
     }
 
     public boolean czyTrafilWCzolg(Czolg czolg) {
@@ -32,7 +27,7 @@ public class Pocisk extends Sprite {
     }
 
     public boolean czyPozaEkranem() {
-        return getX() > GraCzolgi.EKRAN_SZEROKOSC || getX() < 0 ||
-                getY() > GraCzolgi.EKRAN_WYSOKOSC || getY() < 0;
+        return getX() > Gdx.graphics.getWidth() || getX() < 0 ||
+                getY() > Gdx.graphics.getHeight() || getY() < 0;
     }
 }
